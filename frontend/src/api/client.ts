@@ -10,7 +10,8 @@ import {
   RecoveryAttemptResponse,
 } from "../types";
 
-const API_BASE = "/api";
+const rawBase = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") || "";
+const API_BASE = rawBase ? `${rawBase}/api` : "/api";
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(url, {
